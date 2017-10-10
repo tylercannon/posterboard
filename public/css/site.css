@@ -1,0 +1,170 @@
+body {
+    padding-top:56px;
+}
+
+.ribbon {
+    height: 60px;
+    border-top: 1px gray;
+    border-bottom: 1px gray;
+    background-color: #155724;
+}
+
+.posterPhoto {
+    margin-left: 100px;
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    background-color: lightgray;
+    margin-top: -175px;
+}
+
+.header {
+    width: 100%;
+    height: 300px;
+    background-color: #2a88bd;
+}
+
+@media (max-width: 600px) {
+    .posterPhoto {
+        margin-left: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        margin-top: -55px;
+    }
+
+    .header {
+        height: 200px;
+    }
+}
+
+.sideBar {
+    margin-top: -25px;
+    z-index: -1;
+    padding-top: 35px;
+    padding-left: 115px;
+}
+
+.remainder {
+    margin-top: -25px;
+    padding-right: 115px;
+}
+
+.rowModifier {
+    margin: 0;
+}
+
+.profileInfo {
+    display: inline-block;
+    margin-right: 15px;
+    color: lightgray;
+}
+
+.profileInfo:hover {
+    text-decoration: none;
+    color: lightgreen;
+}
+
+.innerLink {
+    color: lightgreen;
+}
+
+.followButton {
+    float:right;
+    transform: translate(0, 25%);
+    margin-right: 25px;
+    background-color: white;
+    border: 2px solid lightgreen;
+    border-radius: 15px;
+    padding: 2px 15px;
+}
+
+.followButton:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+}
+
+.followButton:focus {
+    outline: none;
+}
+
+.profileLink {
+    color: #155724;
+}
+
+.profileLink:hover {
+    text-decoration: none;
+    color: lightgreen;
+}
+
+.site-bg-color {
+    background-color: #e1efe2;
+}
+
+.postContent {
+    width: 100%;
+    border: 2px solid lightgreen;
+    border-radius: 4px;
+    resize: none;
+}
+
+.postContent:focus {
+    outline: none;
+}
+
+.maxCharacters {
+    float: right;
+    font-weight: bold;
+}
+
+.btn:hover:not([disabled]) {
+    cursor: pointer;
+}
+
+.searchDiv {
+    position: relative;
+}
+
+.searchBox {
+    border: 2px solid lightgreen;
+    border-radius: 10px;
+    height: 30px;
+    transform: translateY(20%);
+    margin-right: 10px;
+    width: 200px;
+}
+
+.searchBox:focus {
+    outline: none;
+}
+
+.searchResults {
+    display: none;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    outline: 2px solid lightgreen;
+    position: absolute;
+    top: 45px;
+    left: 5px;
+    z-index: 100;
+}
+
+.searchResult {
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+}
+
+.searchResult:hover {
+    background-color: lightgreen;
+}
+
+.postButton {
+    margin-right: 20px;
+    color: black;
+}
+
+.postButton:hover {
+    text-decoration: none;
+}
