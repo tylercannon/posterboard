@@ -27,6 +27,8 @@ Route::get('/{username}', 'ProfileController@index');
 Route::get('/{username}/followers', 'ProfileController@followers');
 Route::get('/{username}/following', 'ProfileController@following');
 Route::get('/{username}/favorites', 'ProfileController@favorites');
+Route::get('/{username}/edit', 'ProfileController@edit');
+Route::post('/{username}/update', 'ProfileController@update')->name('update');
 Route::post('/followUser', 'ProfileController@followUser')->name('follow');
 Route::post('/unfollowUser', 'ProfileController@unfollowUser')->name('unfollow');
 

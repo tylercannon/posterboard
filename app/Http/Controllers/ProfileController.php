@@ -8,6 +8,7 @@ use DB;
 use App\User;
 use App\Models\Queries;
 use App\Models\Follow;
+use App\Http\Requests\ProfileUpdate;
 
 class ProfileController extends Controller
 {
@@ -38,7 +39,10 @@ class ProfileController extends Controller
         return view('profile.index', ['id' => $user->id,
                                             'name' => $user->name,
                                             'username' => $user->username,
+                                            'description' => $user->description,
                                             'joined' => $user->created_at,
+                                            'headerPhoto' => $user->headerPhoto,
+                                            'profilePhoto' => $user->profilePhoto,
                                             'isFollowing' => $isFollowing,
                                             'numFollowing' => Queries::GetUsersSpecifiedUserIsFollowingCount($user),
                                             'numFollowers' => Queries::GetFollowersForUserCount($user),
@@ -83,6 +87,46 @@ class ProfileController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         $favorites = Queries::GetFavoritesForUser($user);
         return view('profile.favorites', ['favorites' => $favorites]);
+    }
+
+    /**
+     * Take the user to the edit page of their profile.
+     *
+     * @param $username The username of the profile to go to the edit page for
+     */
+    public function edit($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        if (Auth::check() && Auth::user()->id == $user->id) {
+            return view('profile.edit', ['id' => $user->id,
+                                               'username' => $user->username,
+                                               'name' => $user->name,
+                                               'headerPhoto' => $user->headerPhoto,
+                                               'profilePhoto' => $user->profilePhoto,
+                                               'description' => $user->description]);
+        }
+        //if the logged in user is not the profile owner, redirect them to the profile instead of the edit page.
+        return redirect()->action('ProfileController@index', ['username' => $username]);
+    }
+
+    /**
+     * Update the user's profile with new values.
+     * NOTE: validation is done in the ProfileUpdate class
+     * @param ProfileUpdate $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(ProfileUpdate $request)
+    {
+        if (Auth::check() && Auth::user()->username == $request->username) {
+            $user = User::where('username', $request->username)->firstOrFail();
+            $user->name = $request->name;
+            $user->headerPhoto = $request->headerPhoto;
+            $user->profilePhoto = $request->profilePhoto;
+            $user->description = $request->description;
+            $user->save();
+        }
+
+        return redirect()->action('ProfileController@index', ['username' => $request->username]);
     }
 
     /**

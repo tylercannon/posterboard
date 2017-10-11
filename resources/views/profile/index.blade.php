@@ -2,7 +2,11 @@
 
 @section('content')
 
-    <div class="header" name="header"></div>
+    @if ($headerPhoto)
+        <img class="imgHeader" src="{{ $headerPhoto }}" alt="Image couldn't be loaded.">
+    @else
+        <div class="header" name="header"></div>
+    @endif
 
     <div class="ribbon">
         <div style="text-align: center; transform: translate(0,10%)">
@@ -33,24 +37,30 @@
                     </form>
                 @endif
             @elseif(Auth::check() && Auth::user()->id == $id)
-                {{--<button class="followButton" onclick="event.preventDefault();">Edit</button>--}}
-
+                <button class="followButton" onclick="event.preventDefault(); location.href='{{ sprintf('/%s/edit', $username) }}';">Edit</button>
             @endif
         </div>
     </div>
 
-    <div class="posterPhoto"></div>
+    @if ($profilePhoto)
+        <img class="posterPhoto" src="{{ $profilePhoto }}">
+    @else
+        <div class="posterPhoto"></div>
+    @endif
 
     <div>
         <div class="row rowModifier">
             <div class="col-md-4 sideBar">
                 <h3 id="name" class="row">{{ $name }}</h3>
                 <span id="username" class="row">{{ sprintf("@%s", $username) }}</span>
-                <span id="about" class="row">Description goes here</span>
+                <span id="about" class="row">{{ $description ? $description : "No description provided." }}</span>
                 <span id="joinedDate" class="row">Joined {{ \Carbon\Carbon::parse($joined)->format('F Y') }}</span>
             </div>
             <div class="col-md-8 remainder">
                 <div style="margin-top: 20px;">
+                    @if (count($posts) == 0)
+                        <div class="card" style="width: 50%; height: 50px; text-align:center;"><span style="transform: translateY(50%)">There is nothing to display.</span></div>
+                    @endif
                     @foreach ($posts as $post)
                         <div class="card" style="width: 50%; margin-top: 5px">
                             <div class="card-body">
